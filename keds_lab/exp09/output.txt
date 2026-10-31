@@ -1,0 +1,68 @@
+Classes: {np.str_('malignant'): 212, np.str_('benign'): 357}
+Train 398 | Test 171
+
+Baseline (always majority class = benign): test accuracy = 0.626
+
+Training-data look (mean by class) used to set thresholds:
+           worst radius  mean concave points  mean area  worst concave points
+target                                                                       
+malignant        21.180                0.087    973.026                 0.185
+benign           13.358                0.025    460.017                 0.073
+
+Expert rules (IF any of these THEN malignant ELSE benign):
+  E1: IF worst concave points > 0.15 THEN malignant
+  E2: IF worst radius > 16.8 THEN malignant
+  E3: IF mean concave points > 0.06 THEN malignant
+  E4: IF mean area > 700 THEN malignant
+Expert rules test accuracy = 0.912
+
+=== Accuracy versus depth ===
+ depth  train_acc  test_acc  cv_acc
+     2      0.965     0.918   0.940
+     3      0.980     0.924   0.942
+     4      0.992     0.924   0.935
+     6      1.000     0.918   0.935
+Unrestricted tree (depth 6): train = 1.000, test = 0.918  <- 100% on training = memorising
+
+Chosen depth = 2 (smallest depth whose CV accuracy is within 1% of the best 0.942)
+
+=== export_text ===
+|--- worst radius <= 16.80
+|   |--- worst concave points <= 0.14
+|   |   |--- class: 1
+|   |--- worst concave points >  0.14
+|   |   |--- class: 0
+|--- worst radius >  16.80
+|   |--- texture error <= 0.45
+|   |   |--- class: 1
+|   |--- texture error >  0.45
+|   |   |--- class: 0
+
+=== IF-THEN rules from the tree ===
+T1: IF worst radius <= 16.795 AND worst concave points <= 0.143 THEN benign   (241 training cases)
+T2: IF worst radius <= 16.795 AND worst concave points > 0.143 THEN malignant   (26 training cases)
+T3: IF worst radius > 16.795 AND texture error <= 0.455 THEN benign   (3 training cases)
+T4: IF worst radius > 16.795 AND texture error > 0.455 THEN malignant   (128 training cases)
+Rule count: 4 | total conditions: 8
+
+=== Test-set comparison (positive class = malignant) ===
+             system  accuracy  precision  recall    F1
+Baseline (majority)     0.626      0.000   0.000 0.000
+   Expert rules (4)     0.912      0.855   0.922 0.887
+       Tree depth 2     0.918      0.891   0.891 0.891
+       Tree depth 3     0.924      0.918   0.875 0.896
+       Tree depth 4     0.924      0.905   0.891 0.898
+       Tree depth 6     0.918      0.891   0.891 0.891
+
+Confusion matrices (rows = true [malignant, benign]; cols = predicted):
+Expert rules:
+ [[59  5]
+ [10 97]]
+Tree depth 2:
+ [[ 57   7]
+ [  7 100]]
+
+=== Critique (173 words) ===
+The majority baseline reaches 62.6% accuracy but never detects a malignant case, so accuracy alone is misleading here. The depth-2 tree scores 91.8% on the test set with malignant recall 89.1%, using only 4 rules and 8 conditions. The four hand-written expert rules reach 91.2% accuracy and malignant recall 92.2%. The tree is only marginally better on accuracy and F1, while the expert rules use fewer conditions and, because any single rule fires malignant, lean towards catching positives (higher recall, lower precision). Missing a malignant case is the costly error, so recall matters more than accuracy. A deeper tree reaches 100% training accuracy but its test and cross-validation accuracy stay flat or dip slightly, which signals overfitting; the depth was therefore chosen by cross-validation. A domain expert would probably accept rules built on size and concavity measures, since these match clinical intuition, but would question splits on odd features or tiny leaves with few cases. All learned rules need validation on new data, and this system must never be used for real diagnosis.
+
+Plot saved: accuracy_vs_depth.png

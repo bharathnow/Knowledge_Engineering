@@ -1,0 +1,153 @@
+@prefix ex: <http://example.org/kg/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:City a rdfs:Class .
+
+ex:Department a rdfs:Class .
+
+ex:Person a rdfs:Class .
+
+ex:Project a rdfs:Class .
+
+ex:University a rdfs:Class .
+
+ex:Arun_Kumar a ex:Person ;
+    rdfs:label "Arun Kumar" ;
+    ex:alsoKnownAs "A. Kumar" ;
+    ex:livesIn ex:Chennai ;
+    ex:memberOf ex:CSE ;
+    ex:role_ProjectBeta "Developer" ;
+    ex:studiesAt ex:Anna_University ;
+    ex:worksOn ex:Project_Beta .
+
+ex:Asha a ex:Person ;
+    rdfs:label "Asha" ;
+    ex:livesIn ex:Chennai ;
+    ex:memberOf ex:CSE ;
+    ex:role_ProjectAlpha "Lead" ;
+    ex:role_ProjectDelta "Reviewer" ;
+    ex:studiesAt ex:Anna_University,
+        ex:IIT_Madras ;
+    ex:worksOn ex:Project_Alpha,
+        ex:Project_Delta,
+        ex:Project_Zeta .
+
+ex:Divya a ex:Person ;
+    rdfs:label "Divya" ;
+    ex:livesIn ex:Chennai ;
+    ex:memberOf ex:AIDS ;
+    ex:role_ProjectAlpha "Analyst" ;
+    ex:role_ProjectDelta "Lead" ;
+    ex:studiesAt ex:Anna_University ;
+    ex:worksOn ex:Project_Alpha,
+        ex:Project_Beta,
+        ex:Project_Delta .
+
+ex:Karthik a ex:Person ;
+    rdfs:label "Karthik" ;
+    ex:livesIn ex:Trichy ;
+    ex:memberOf ex:CSE ;
+    ex:role_ProjectAlpha "Developer" ;
+    ex:studiesAt ex:Anna_University ;
+    ex:worksOn ex:Project_Alpha,
+        ex:Project_Epsilon .
+
+ex:Lakshmi a ex:Person ;
+    rdfs:label "Lakshmi" ;
+    ex:livesIn ex:Madurai ;
+    ex:memberOf ex:AIDS ;
+    ex:role_ProjectBeta "Analyst" ;
+    ex:studiesAt ex:SIMATS ;
+    ex:worksOn ex:Project_Alpha,
+        ex:Project_Beta .
+
+ex:Meena a ex:Person ;
+    rdfs:label "Meena" ;
+    ex:livesIn ex:Chennai ;
+    ex:memberOf ex:ECE ;
+    ex:role_ProjectDelta "Tester" ;
+    ex:studiesAt ex:SIMATS ;
+    ex:worksOn ex:Project_Delta .
+
+ex:Priya a ex:Person ;
+    rdfs:label "Priya" ;
+    ex:livesIn ex:Madurai ;
+    ex:memberOf ex:ECE ;
+    ex:role_ProjectAlpha "Analyst" ;
+    ex:studiesAt ex:IIT_Madras ;
+    ex:worksOn ex:Project_Alpha,
+        ex:Project_Zeta .
+
+ex:Ravi a ex:Person ;
+    rdfs:label "Ravi" ;
+    ex:livesIn ex:Coimbatore ;
+    ex:memberOf ex:MECH ;
+    ex:role_ProjectGamma "Engineer" ;
+    ex:studiesAt ex:SIMATS ;
+    ex:worksOn ex:Project_Gamma .
+
+ex:Suresh a ex:Person ;
+    rdfs:label "Suresh" ;
+    ex:livesIn ex:Coimbatore ;
+    ex:memberOf ex:MECH ;
+    ex:role_ProjectGamma "Engineer" ;
+    ex:studiesAt ex:NIT_Trichy ;
+    ex:worksOn ex:Project_Gamma .
+
+ex:livesIn a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:City .
+
+ex:memberOf a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:Department .
+
+ex:studiesAt a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:University .
+
+ex:worksOn a rdf:Property ;
+    rdfs:domain ex:Person ;
+    rdfs:range ex:Project .
+
+ex:NIT_Trichy a ex:University .
+
+ex:Project_Epsilon a ex:Project .
+
+ex:Trichy a ex:City .
+
+ex:AIDS a ex:Department .
+
+ex:Coimbatore a ex:City .
+
+ex:ECE a ex:Department .
+
+ex:IIT_Madras a ex:University .
+
+ex:MECH a ex:Department .
+
+ex:Madurai a ex:City .
+
+ex:Project_Gamma a ex:Project ;
+    rdfs:label "Project Gamma" .
+
+ex:Project_Zeta a ex:Project .
+
+ex:CSE a ex:Department .
+
+ex:Project_Beta a ex:Project ;
+    rdfs:label "Project Beta" .
+
+ex:Project_Delta a ex:Project ;
+    rdfs:label "Project Delta" .
+
+ex:SIMATS a ex:University .
+
+ex:Anna_University a ex:University .
+
+ex:Chennai a ex:City .
+
+ex:Project_Alpha a ex:Project ;
+    rdfs:label "Project Alpha" .
+

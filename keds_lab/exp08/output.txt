@@ -1,0 +1,63 @@
+Data: (90, 6) | methods: {'A': 30, 'B': 30, 'C': 30}
+        score_before  score_after
+method                           
+A              51.46        54.84
+B              52.27        62.52
+C              54.16        68.87 
+
+One-sample t (score_after vs 60)
+  H0: mean = 60
+  H1: mean != 60
+  alpha = 0.05 | statistic = 1.982 | p = 0.05061
+  Decision: Fail to reject H0
+  Conclusion: No evidence that mean score_after differs from 60.
+
+Independent t (method A vs B)
+  H0: mean_A = mean_B
+  H1: mean_A != mean_B
+  alpha = 0.05 | statistic = -3.476 | p = 0.0009719
+  Decision: Reject H0
+  Conclusion: Methods A (54.84) and B (62.52) give significantly different scores.
+
+Paired t (before vs after)
+  H0: mean difference = 0
+  H1: mean difference != 0
+  alpha = 0.05 | statistic = -7.720 | p = 1.624e-11
+  Decision: Reject H0
+  Conclusion: Scores changed significantly (before 52.63, after 62.08).
+
+One-way ANOVA (methods A,B,C)
+  H0: mean_A = mean_B = mean_C
+  H1: at least one mean differs
+  alpha = 0.05 | statistic = 22.095 | p = 1.739e-08
+  Decision: Reject H0
+  Conclusion: At least one teaching method has a different mean score.
+
+  Group means: {'A': 54.84, 'B': 62.52, 'C': 68.87}
+  Post-hoc A vs B: t = -3.476, p = 0.0009719 (Bonferroni threshold 0.0167) -> differ
+  Post-hoc A vs C: t = -6.763, p = 7.315e-09 (Bonferroni threshold 0.0167) -> differ
+  Post-hoc B vs C: t = -3.092, p = 0.003054 (Bonferroni threshold 0.0167) -> differ
+
+Contingency table gender x result:
+ result  fail  pass
+gender            
+F         18    25
+M         21    26 
+
+Chi-square (gender vs result)
+  H0: gender and result are independent
+  H1: gender and result are associated
+  alpha = 0.05 | statistic = 0.003 | p = 0.9547
+  Decision: Fail to reject H0
+  Conclusion: No evidence of association between gender and result.
+
+=== Results table ===
+                            test  statistic   p_value          decision
+One-sample t (score_after vs 60)      1.982   0.05061 Fail to reject H0
+   Independent t (method A vs B)     -3.476 0.0009719         Reject H0
+      Paired t (before vs after)     -7.720 1.624e-11         Reject H0
+   One-way ANOVA (methods A,B,C)     22.095 1.739e-08         Reject H0
+   Chi-square (gender vs result)      0.003    0.9547 Fail to reject H0
+
+95% confidence interval for mean score_after: (59.99, 64.16) | mean = 62.08
+Box plot saved: boxplot_by_method.png | table saved: results_table.csv

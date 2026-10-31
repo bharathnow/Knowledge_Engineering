@@ -1,0 +1,95 @@
+
+==============================================================================
+Consultation: Bacterial blight (spots + wet weather)
+==============================================================================
+  ? Is it true that 'leaf_spots'? (yes/no/why) -> yes [scripted]
+  ? Is it true that 'yellow_halo'? (yes/no/why) -> why [scripted]
+  WHY: I am trying to prove 'bacterial_blight' using rule R1: IF leaf_spots AND yellow_halo THEN bacterial_blight. I need this fact to test that rule.
+  ? Is it true that 'yellow_halo'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'wet_weather'? (yes/no/why) -> yes [scripted]
+
+CONCLUSION: bacterial_blight
+HOW:
+  bacterial_blight was proved by R2: IF leaf_spots AND wet_weather
+      leaf_spots = True (answered by the user)
+      wet_weather = True (answered by the user)
+ADVICE: apply_copper_spray (rule R13)
+Questions asked: 3 | rules tried: 3
+
+==============================================================================
+Consultation: Powdery mildew
+==============================================================================
+  ? Is it true that 'leaf_spots'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'white_powder_on_leaves'? (yes/no/why) -> yes [scripted]
+  ? Is it true that 'dry_warm_weather'? (yes/no/why) -> yes [scripted]
+
+CONCLUSION: powdery_mildew
+HOW:
+  powdery_mildew was proved by R3: IF white_powder_on_leaves AND dry_warm_weather
+      white_powder_on_leaves = True (answered by the user)
+      dry_warm_weather = True (answered by the user)
+ADVICE: apply_sulphur_fungicide (rule R14)
+Questions asked: 3 | rules tried: 4
+
+==============================================================================
+Consultation: Fusarium wilt
+==============================================================================
+  ? Is it true that 'leaf_spots'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'white_powder_on_leaves'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'wilting'? (yes/no/why) -> yes [scripted]
+  ? Is it true that 'brown_stem_inside'? (yes/no/why) -> yes [scripted]
+
+CONCLUSION: fusarium_wilt
+HOW:
+  fusarium_wilt was proved by R5: IF wilting AND brown_stem_inside
+      wilting = True (answered by the user)
+      brown_stem_inside = True (answered by the user)
+Questions asked: 4 | rules tried: 5
+
+==============================================================================
+Consultation: Early blight via intermediate rule R9 -> R8
+==============================================================================
+  ? Is it true that 'leaf_spots'? (yes/no/why) -> yes [scripted]
+  ? Is it true that 'yellow_halo'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'wet_weather'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'white_powder_on_leaves'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'wilting'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'concentric_rings'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'lower_leaves_first'? (yes/no/why) -> yes [scripted]
+
+CONCLUSION: early_blight
+HOW:
+  early_blight was proved by R8: IF early_blight_suspect AND lower_leaves_first
+      early_blight_suspect was proved by R9: IF leaf_spots AND lower_leaves_first
+          leaf_spots = True (answered by the user)
+          lower_leaves_first = True (answered by the user)
+      lower_leaves_first = True (answered by the user)
+Questions asked: 7 | rules tried: 9
+
+==============================================================================
+Consultation: Nothing provable
+==============================================================================
+  ? Is it true that 'leaf_spots'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'white_powder_on_leaves'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'wilting'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'yellow_leaves'? (yes/no/why) -> no [scripted]
+  ? Is it true that 'stunted_growth'? (yes/no/why) -> no [scripted]
+
+CONCLUSION: nothing could be proved from the answers given.
+Questions asked: 5 | rules tried: 12
+
+==============================================================================
+Demonstration of the WHY facility (asked when system poses a question)
+==============================================================================
+  ? Is it true that 'yellow_halo'? (yes/no/why) -> why
+  WHY: I am trying to prove 'bacterial_blight' using rule R1: IF leaf_spots AND yellow_halo THEN bacterial_blight. I need this fact to test that rule.
+
+==============================================================================
+Backward vs forward chaining on the same rule base
+==============================================================================
+Scenario                                        Questions (BC)  Rules tried (BC)  Rules checked (FC)
+Bacterial blight (spots + wet weather)          3               3                 28
+Powdery mildew                                  3               4                 28
+Fusarium wilt                                   4               5                 28
+Early blight via intermediate rule R9 -> R8     7               9                 42
+Nothing provable                                5               12                14

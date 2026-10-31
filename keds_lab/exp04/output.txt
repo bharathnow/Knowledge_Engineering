@@ -1,0 +1,61 @@
+
+====================================================================================================
+Test 1 (strong applicant) | starting facts: ['no_defaults', 'permanent_job', 'repaid_before', 'salary_high']
+--- Strategy: first match ---
+Cycle Conflict set                      Fired   Facts after
+----------------------------------------------------------------------------------------------------
+1     ['R1', 'R3', 'R5']                R1      ['income_ok', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high']
+2     ['R3', 'R5']                      R3      ['credit_good', 'income_ok', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high']
+3     ['R5', 'R7']                      R5      ['credit_good', 'income_ok', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high', 'stable_job']
+4     ['R6', 'R7']                      R6      ['approve', 'credit_good', 'income_ok', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high', 'stable_job']
+5     ['R7']                            R7      ['approve', 'conditional_approve', 'credit_good', 'income_ok', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high', 'stable_job']
+Stopped: no rule can add a new fact.  Firing order: ['R1', 'R3', 'R5', 'R6', 'R7']
+--- Strategy: most specific rule first ---
+Cycle Conflict set                      Fired   Facts after
+----------------------------------------------------------------------------------------------------
+1     ['R1', 'R3', 'R5']                R3      ['credit_good', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high']
+2     ['R1', 'R5']                      R1      ['credit_good', 'income_ok', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high']
+3     ['R5', 'R7']                      R7      ['conditional_approve', 'credit_good', 'income_ok', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high']
+4     ['R5']                            R5      ['conditional_approve', 'credit_good', 'income_ok', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high', 'stable_job']
+5     ['R6']                            R6      ['approve', 'conditional_approve', 'credit_good', 'income_ok', 'no_defaults', 'permanent_job', 'repaid_before', 'salary_high', 'stable_job']
+Stopped: no rule can add a new fact.  Firing order: ['R3', 'R1', 'R7', 'R5', 'R6']
+Final conclusions: ['approve', 'conditional_approve']
+Order same in both strategies? False
+
+====================================================================================================
+Test 2 (medium salary, co-applicant, collateral) | starting facts: ['credit_score_high', 'has_coapplicant', 'has_collateral', 'permanent_job', 'salary_medium']
+--- Strategy: first match ---
+Cycle Conflict set                      Fired   Facts after
+----------------------------------------------------------------------------------------------------
+1     ['R2', 'R4', 'R5']                R2      ['credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium']
+2     ['R4', 'R5']                      R4      ['credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium']
+3     ['R5', 'R7']                      R5      ['credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium', 'stable_job']
+4     ['R6', 'R7', 'R9']                R6      ['approve', 'credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium', 'stable_job']
+5     ['R7', 'R9']                      R7      ['approve', 'conditional_approve', 'credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium', 'stable_job']
+6     ['R9']                            R9      ['approve', 'approve_low_interest', 'conditional_approve', 'credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium', 'stable_job']
+Stopped: no rule can add a new fact.  Firing order: ['R2', 'R4', 'R5', 'R6', 'R7', 'R9']
+--- Strategy: most specific rule first ---
+Cycle Conflict set                      Fired   Facts after
+----------------------------------------------------------------------------------------------------
+1     ['R2', 'R4', 'R5']                R2      ['credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium']
+2     ['R4', 'R5']                      R4      ['credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium']
+3     ['R5', 'R7']                      R7      ['conditional_approve', 'credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium']
+4     ['R5']                            R5      ['conditional_approve', 'credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium', 'stable_job']
+5     ['R6', 'R9']                      R9      ['approve_low_interest', 'conditional_approve', 'credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium', 'stable_job']
+6     ['R6']                            R6      ['approve', 'approve_low_interest', 'conditional_approve', 'credit_good', 'credit_score_high', 'has_coapplicant', 'has_collateral', 'income_ok', 'permanent_job', 'salary_medium', 'stable_job']
+Stopped: no rule can add a new fact.  Firing order: ['R2', 'R4', 'R7', 'R5', 'R9', 'R6']
+Final conclusions: ['approve', 'approve_low_interest', 'conditional_approve']
+Order same in both strategies? False
+
+====================================================================================================
+Test 3 (no conclusion) | starting facts: ['has_collateral']
+--- Strategy: first match ---
+Cycle Conflict set                      Fired   Facts after
+----------------------------------------------------------------------------------------------------
+Stopped: no rule can add a new fact.  Firing order: []
+--- Strategy: most specific rule first ---
+Cycle Conflict set                      Fired   Facts after
+----------------------------------------------------------------------------------------------------
+Stopped: no rule can add a new fact.  Firing order: []
+Final conclusions: none
+Order same in both strategies? True

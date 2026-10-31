@@ -1,0 +1,6 @@
+test,statistic,p_value,decision,conclusion
+One-sample t (score_after vs 60),1.982,0.05061,Fail to reject H0,No evidence that mean score_after differs from 60.
+Independent t (method A vs B),-3.476,0.0009719,Reject H0,Methods A (54.84) and B (62.52) give significantly different scores.
+Paired t (before vs after),-7.72,1.624e-11,Reject H0,"Scores changed significantly (before 52.63, after 62.08)."
+"One-way ANOVA (methods A,B,C)",22.095,1.739e-08,Reject H0,At least one teaching method has a different mean score.
+Chi-square (gender vs result),0.003,0.9547,Fail to reject H0,No evidence of association between gender and result.

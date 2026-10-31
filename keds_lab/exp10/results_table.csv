@@ -1,0 +1,5 @@
+system,accuracy,macro_F1
+baseline,0.325,0.123
+rules,0.725,0.725
+model,0.8,0.798
+hybrid,0.85,0.855

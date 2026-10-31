@@ -1,0 +1,13 @@
+person_id,project,role
+1,Project Alpha,Lead
+2,Project Beta,Developer
+3,Project Alpha,Analyst
+4,Project Beta,Developer
+5,Project Gamma,Engineer
+6,Project Delta,Tester
+7,Project Alpha,Developer
+8,Project Delta,Lead
+9,Project Gamma,Engineer
+10,Project Beta,Analyst
+1,Project Delta,Reviewer
+8,Project Alpha,Analyst

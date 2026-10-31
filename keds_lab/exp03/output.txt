@@ -1,0 +1,17 @@
+=== Slot values of MyCar and their source ===
+Slot        Value     Source
+-------------------------------------------------------
+colour      red       frame value (MyCar)
+doors       2         frame value (MyCar)
+category    passenger inherited: frame value (Car)
+wheels      4         inherited: default (Vehicle)
+fuel_type   petrol    inherited: default (Vehicle)
+odometer    12000     frame value (MyCar)
+fuel_used   800       frame value (MyCar)
+mileage     15.0      inherited: if-needed procedure (Vehicle)
+
+=== Demon demonstration ===
+Setting mileage = -5 on MyCar:
+   [DEMON] WARNING: MyCar: negative value -5 set!
+Setting mileage = 15 on MyCar (no warning):
+mileage now -> (15, 'frame value (MyCar)')

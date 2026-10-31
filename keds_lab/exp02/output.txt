@@ -1,0 +1,33 @@
+=== Inheritance queries ===
+Q: Can Tweety fly?
+   links followed: Tweety -> Canary -> Bird
+   answer: ['can fly']  (found at 'Bird')
+
+Q: Does Tweety have wings (what parts)?
+   links followed: Tweety -> Canary -> Bird
+   answer: ['wings']  (found at 'Bird')
+
+Q: Can a penguin fly? (exception overrides Bird)
+   links followed: Penguin
+   answer: ['cannot fly', 'swim']  (found at 'Penguin')
+
+Q: What can Pingu do?
+   links followed: Pingu -> Penguin
+   answer: ['cannot fly', 'swim']  (found at 'Penguin')
+
+Q: What colour is Tweety?
+   links followed: Tweety -> Canary
+   answer: ['yellow']  (found at 'Canary')
+
+Q: What parts does a Fish have (inherited from Animal)?
+   links followed: Fish -> Animal
+   answer: ['skin']  (found at 'Animal')
+
+=== Path search ===
+Tweety -> Animal : ['Tweety', 'Canary', 'Bird', 'Animal']
+Pingu  -> Animal : ['Pingu', 'Penguin', 'Bird', 'Animal']
+Fish   -> Tweety : None
+
+Exception handling note: the search starts at the most specific node and stops at
+the first node that has the relation, so 'Penguin: cannot fly' overrides 'Bird: can fly'.
+Network drawing saved: semantic_network.png

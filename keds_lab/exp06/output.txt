@@ -1,0 +1,44 @@
+Competency questions the ontology must answer:
+   CQ1: Which courses does Asha attend?
+   CQ2: Who teaches Data Science?
+   CQ3: Which department does Dr. Rao belong to?
+   CQ4: Which individuals are Students (including inferred ones)?
+   CQ5: Which courses have more than 3 credits?
+
+Saved university.owl
+
+=== Running HermiT reasoner ===
+* Owlready2 * Running HermiT...
+    java -Xmx2000M -cp /usr/local/lib/python3.13/site-packages/owlready2/hermit:/usr/local/lib/python3.13/site-packages/owlready2/hermit/HermiT.jar org.semanticweb.HermiT.cli.CommandLine -c -O -D -I file:////tmp/tmp8_xw9zy4 -Y
+* Owlready2 * HermiT took 0.604189395904541 seconds
+* Owlready * Reparenting university.EnrolledPerson: {university.Person, university.Student} => {university.Student}
+* Owlready * Reparenting university.Karthik: {university.Person} => {university.EnrolledPerson}
+* Owlready * Reparenting university.Ravi: {university.UGStudent} => {university.EnrolledPerson, university.UGStudent}
+* Owlready * Reparenting university.Divya: {university.PGStudent} => {university.EnrolledPerson, university.PGStudent}
+* Owlready * Reparenting university.Asha: {university.UGStudent} => {university.EnrolledPerson, university.UGStudent}
+* Owlready * (NB: only changes on entities loaded in Python are shown, other changes are done but not listed)
+
+=== Inferred class membership (new types found by the reasoner) ===
+  Asha: now also ['EnrolledPerson']
+  Divya: now also ['EnrolledPerson']
+  Karthik: now also ['EnrolledPerson']
+  Ravi: now also ['EnrolledPerson']
+
+Karthik is a Student? True
+DrRao is a Faculty?    True
+Inferred inverse (taughtBy) for DataScience: ['DrRao']
+
+=== Answers to competency questions ===
+CQ1 courses Asha attends      : ['DataScience', 'KnowledgeRepresentation']
+CQ2 who teaches DataScience   : ['DrRao']
+CQ3 Dr. Rao's department      : ['CSE']
+CQ4 Students (incl. inferred) : ['Asha', 'Divya', 'Karthik', 'Ravi']
+CQ5 courses with credits > 3  : ['DataScience', 'MachineLearning']
+Class hierarchy diagram saved: class_hierarchy.png
+
+=== Deliberate inconsistency: a person who is both Student and Faculty ===
+* Owlready2 * Running HermiT...
+    java -Xmx2000M -cp /usr/local/lib/python3.13/site-packages/owlready2/hermit:/usr/local/lib/python3.13/site-packages/owlready2/hermit/HermiT.jar org.semanticweb.HermiT.cli.CommandLine -c -O -D -I file:////tmp/tmpsq_nav19
+HermiT reports: INCONSISTENT ONTOLOGY.
+Reason: BadPerson is declared a Student and a Faculty, but Student and Faculty
+        were declared disjoint (AllDisjoint), so no model can satisfy both.

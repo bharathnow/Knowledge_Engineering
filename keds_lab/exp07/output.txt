@@ -1,0 +1,53 @@
+Triples after loading CSV files: 97
+Triples added from text: 21 | total now: 118
+
+=== Entity resolution (same department + similar name) ===
+  candidate: 'Arun Kumar' vs 'A. Kumar'  dept=CSE  score=0.98  -> MERGE
+  merged A_Kumar into Arun_Kumar
+Total triples after merge: 113
+Graph saved: knowledge_graph.ttl
+
+=== SPARQL results ===
+Q1 Who works on Project Alpha?
+    Asha
+    Divya
+    Karthik
+    Lakshmi
+    Priya
+Q2 Who is in the same department as Asha?
+    Arun Kumar
+    Karthik
+Q3 Which projects involve people living in Chennai?
+    Project Alpha
+    Project Beta
+    Project Delta
+Q4 How many projects does each person work on?
+    Asha | 3
+    Divya | 3
+    Karthik | 2
+    Lakshmi | 2
+    Priya | 2
+    Arun Kumar | 1
+    Meena | 1
+    Ravi | 1
+    Suresh | 1
+Q5 Which universities are linked to Project Alpha workers?
+    Anna_University
+    IIT_Madras
+    SIMATS
+Q6 Who is also known under another name (resolved duplicates)?
+    Arun Kumar | A. Kumar
+
+=== Degree of each node (top 10) ===
+   Asha              7
+   Divya             6
+   Karthik           5
+   Lakshmi           5
+   Priya             5
+   Project_Alpha     5
+   Anna_University   4
+   Arun_Kumar        4
+   Chennai           4
+   Meena             4
+Most connected entity: Asha (degree 7)
+Graph drawing saved: kg_drawing.png

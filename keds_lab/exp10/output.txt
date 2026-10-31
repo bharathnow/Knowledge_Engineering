@@ -1,0 +1,102 @@
+Dataset: 200 students | train 160 | test 40 cases
+Knowledge graph: 52 domain triples (>= 40 required)
+Model: random forest | 5-fold CV accuracy on training data = 0.762 (+/- 0.042)
+
+=== Evaluation on 40 held-out test cases ===
+  system  accuracy  macro_F1
+baseline     0.325     0.123
+   rules     0.725     0.725
+   model     0.800     0.798
+  hybrid     0.850     0.855
+Rules and model agreed on 31 of 40 cases.
+When they disagreed (9 cases): rules correct 2, model correct 5, hybrid correct 7
+
+=== 5 sample explanations ===
+Student ST161  ->  RECOMMENDED TRACK: Data   (true best track: Data)
+  Facts from graph : interestedIn Data, strongIn design, strongIn maths
+  Rule R1: strongIn maths -> AI (CF +0.50)
+  Rule R3: strongIn maths -> Data (CF +0.50)
+  Rule R4: strongIn design -> Data (CF +0.20)
+  Rule R7: strongIn design -> Web (CF +0.50)
+  Rule R10: interestedIn Data -> Data (CF +0.50)
+  Combined CF      : {'AI': 0.5, 'Data': 0.8, 'Security': 0.0, 'Web': 0.5}
+  Model confidence : Data at 0.92  | probabilities {'AI': 0.0, 'Data': 0.92, 'Security': 0.02, 'Web': 0.06}
+  Rules vs model   : AGREE
+  Suggested courses: BigData, DataMining
+
+Student ST162  ->  RECOMMENDED TRACK: Web   (true best track: Web)
+  Facts from graph : interestedIn Web, strongIn design, strongIn programming, weakIn maths
+  Rule R2: strongIn programming -> AI (CF +0.40)
+  Rule R4: strongIn design -> Data (CF +0.20)
+  Rule R6: strongIn programming -> Security (CF +0.20)
+  Rule R7: strongIn design -> Web (CF +0.50)
+  Rule R8: strongIn programming -> Web (CF +0.40)
+  Rule R12: interestedIn Web -> Web (CF +0.50)
+  Rule R14: weakIn maths -> AI (CF -0.50)
+  Rule R16: weakIn maths -> Data (CF -0.40)
+  Combined CF      : {'AI': -0.17, 'Data': -0.25, 'Security': 0.2, 'Web': 0.85}
+  Model confidence : Web at 0.88  | probabilities {'AI': 0.07, 'Data': 0.03, 'Security': 0.03, 'Web': 0.88}
+  Rules vs model   : AGREE
+  Suggested courses: UXDesign, WebEngineering
+
+Student ST164  ->  RECOMMENDED TRACK: Web   (true best track: Web)
+  Facts from graph : interestedIn Web, strongIn design, weakIn maths, weakIn networks, weakIn programming
+  Rule R4: strongIn design -> Data (CF +0.20)
+  Rule R7: strongIn design -> Web (CF +0.50)
+  Rule R12: interestedIn Web -> Web (CF +0.50)
+  Rule R13: weakIn networks -> Security (CF -0.50)
+  Rule R14: weakIn maths -> AI (CF -0.50)
+  Rule R16: weakIn maths -> Data (CF -0.40)
+  Combined CF      : {'AI': -0.5, 'Data': -0.25, 'Security': -0.5, 'Web': 0.75}
+  Model confidence : Web at 0.79  | probabilities {'AI': 0.03, 'Data': 0.1, 'Security': 0.07, 'Web': 0.79}
+  Rules vs model   : AGREE
+  Suggested courses: UXDesign, WebEngineering
+
+Student ST165  ->  RECOMMENDED TRACK: Web   (true best track: Web)
+  Facts from graph : hasStanding high_cgpa, interestedIn Web, strongIn maths, strongIn programming, weakIn networks
+  Rule R1: strongIn maths -> AI (CF +0.50)
+  Rule R2: strongIn programming -> AI (CF +0.40)
+  Rule R3: strongIn maths -> Data (CF +0.50)
+  Rule R6: strongIn programming -> Security (CF +0.20)
+  Rule R8: strongIn programming -> Web (CF +0.40)
+  Rule R12: interestedIn Web -> Web (CF +0.50)
+  Rule R13: weakIn networks -> Security (CF -0.50)
+  Combined CF      : {'AI': 0.7, 'Data': 0.5, 'Security': -0.37, 'Web': 0.7}
+  Model confidence : Web at 0.59  | probabilities {'AI': 0.21, 'Data': 0.2, 'Security': 0.01, 'Web': 0.59}
+  Rules vs model   : DISAGREE (rules AI, model Web)
+  Suggested courses: UXDesign, WebEngineering
+
+Student ST168  ->  RECOMMENDED TRACK: Web   (true best track: Data)
+  Facts from graph : interestedIn Data, strongIn design, strongIn networks, weakIn maths, weakIn programming
+  Rule R4: strongIn design -> Data (CF +0.20)
+  Rule R5: strongIn networks -> Security (CF +0.60)
+  Rule R7: strongIn design -> Web (CF +0.50)
+  Rule R10: interestedIn Data -> Data (CF +0.50)
+  Rule R14: weakIn maths -> AI (CF -0.50)
+  Rule R16: weakIn maths -> Data (CF -0.40)
+  Combined CF      : {'AI': -0.5, 'Data': 0.33, 'Security': 0.6, 'Web': 0.5}
+  Model confidence : Web at 0.48  | probabilities {'AI': 0.01, 'Data': 0.44, 'Security': 0.08, 'Web': 0.48}
+  Rules vs model   : DISAGREE (rules Security, model Web)
+  Suggested courses: UXDesign, WebEngineering
+
+=== Failure case analysis ===
+Hybrid wrong on 6 of 40 cases.
+Student ST163  ->  RECOMMENDED TRACK: Security   (true best track: Data)
+  Facts from graph : interestedIn Security, weakIn programming
+  Rule R11: interestedIn Security -> Security (CF +0.50)
+  Combined CF      : {'AI': 0.0, 'Data': 0.0, 'Security': 0.5, 'Web': 0.0}
+  Model confidence : Security at 0.58  | probabilities {'AI': 0.06, 'Data': 0.16, 'Security': 0.58, 'Web': 0.19}
+  Rules vs model   : AGREE
+  Suggested courses: CryptoBasics, EthicalHacking
+
+  Why it failed: the true track 'Data' received rule CF 0.00 and model probability 0.16, while the chosen 'Security' scored CF 0.50 / probability 0.58.
+  The labels were generated with 8% random noise and an interest bonus, so part of such errors is
+  label noise; the rules also use hard 70 / 55 mark thresholds, so students near a threshold are misjudged.
+
+System diagram saved: system_diagram.png | results saved: results_table.csv
+
+=== Limitations and ethics ===
+- Data are SYNTHETIC; results show the method works, not that it suits real students.
+- Must NOT be used to deny a student a course, rank students, or make any admission decision.
+- Before real use: real, representative data; expert (faculty) review of every rule and CF;
+  fairness checks across groups; a way for students to see the explanation and override the advice.
